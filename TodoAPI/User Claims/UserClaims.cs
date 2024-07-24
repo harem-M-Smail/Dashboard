@@ -10,9 +10,12 @@ public class UserClaims
 
     public UserClaims(ClaimsPrincipal userClaims)
     {
-        UserId = Convert.ToInt32(userClaims.FindFirstValue(ClaimTypes.NameIdentifier));
-        Username = userClaims.FindFirstValue(ClaimTypes.Name)!;
-        Email = userClaims.FindFirstValue(ClaimTypes.Email)!;
+        // UserId = Convert.ToInt32(userClaims.FindFirstValue(ClaimTypes.NameIdentifier));
+        // Username = userClaims.FindFirstValue(ClaimTypes.Name)!;
+        // Email = userClaims.FindFirstValue(ClaimTypes.Email)!;
+        UserId = 3;
+        Username = "Aso Ali";
+        Email = "aso.ali@test.com";
     }
     
 }
