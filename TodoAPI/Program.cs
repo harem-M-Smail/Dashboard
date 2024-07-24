@@ -25,13 +25,13 @@ builder.Services.AddScoped<ITodoService, TodoService>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("ReactApp", policy =>
+    options.AddDefaultPolicy(policy =>
     {
         policy.WithOrigins("http://localhost:3000");
-        policy.AllowAnyOrigin();
+        // policy.AllowAnyOrigin();
         policy.AllowAnyHeader();
         policy.AllowAnyMethod();
-        // policy.AllowCredentials();
+        policy.AllowCredentials();
     });
 });
 
@@ -65,11 +65,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-app.UseCors("ReactApp");
 
 app.Run();
