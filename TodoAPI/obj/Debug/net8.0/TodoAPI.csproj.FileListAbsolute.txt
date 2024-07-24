@@ -125,3 +125,4 @@ C:\Users\TOTAL TECH CO\RiderProjects\TodoAPI\TodoAPI\obj\Debug\net8.0\refint\Tod
 C:\Users\TOTAL TECH CO\RiderProjects\TodoAPI\TodoAPI\obj\Debug\net8.0\TodoAPI.pdb
 C:\Users\TOTAL TECH CO\RiderProjects\TodoAPI\TodoAPI\obj\Debug\net8.0\TodoAPI.genruntimeconfig.cache
 C:\Users\TOTAL TECH CO\RiderProjects\TodoAPI\TodoAPI\obj\Debug\net8.0\ref\TodoAPI.dll
+C:\Users\TOTAL TECH CO\RiderProjects\TodoAPI\TodoAPI\obj\Debug\net8.0\TodoAPI.sourcelink.json

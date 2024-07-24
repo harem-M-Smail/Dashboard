@@ -14,7 +14,7 @@ public class Todo
     [MaxLength(150), DataType(DataType.MultilineText)]
     public required string Description { get; set; }
     [MaxLength(15)]
-    public string Status { get; set; } = "Todo";
+    public required string Status { get; set; }
     [DataType(DataType.DateTime)]
     public DateTime Created { get; init; } = DateTime.Now.AddSeconds(-DateTime.Now.Second).AddMilliseconds(-DateTime.Now.Millisecond);
     [DataType(DataType.DateTime)]

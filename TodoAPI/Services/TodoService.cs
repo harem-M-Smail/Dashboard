@@ -20,7 +20,8 @@ public class TodoService : ITodoService
         {
             UserId = userId,
             Title = newTodo.Title,
-            Description = newTodo.Description
+            Description = newTodo.Description,
+            Status = newTodo.Status
         };
 
         await _database.Todos.AddAsync(todo);
