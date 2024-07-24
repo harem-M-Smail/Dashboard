@@ -72,7 +72,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("info")]
-    // [Authorize]
+    [Authorize]
     public async Task<IActionResult> GetUserInfo()
     {
         var user = await _userService.GetUserInfo(_userClaims.UserId);
