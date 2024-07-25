@@ -14,7 +14,7 @@ public class TodoService : ITodoService
         _database = dbContext;
     }
     
-    public async Task CreateTodo(int userId, TodoCreationDto newTodo)
+    public async Task CreateTodo(int userId, TodoDto newTodo)
     {
         var todo = new Todo()
         {
@@ -39,11 +39,11 @@ public class TodoService : ITodoService
         return todos;
     }
 
-    public Page GetTodoByPage(int userId, int page, int pageSize)
+    public TodoPage GetTodoByPage(int userId, int page, int pageSize)
     {
         var todos = GetAllTodo(userId).Result;
         
-        var todoPage = new Page()
+        var todoPage = new TodoPage()
         {
             TotalPages = (int)Math.Ceiling(todos.Count / (double)pageSize), // calculate total page
             CurrentPage = page,
@@ -60,16 +60,16 @@ public class TodoService : ITodoService
         return todo;
     }
 
-    public async Task<Todo?> UpdateTodo(int userId, int todoId, TodoUpdateDto todoUpdateDto)
+    public async Task<Todo?> UpdateTodo(int userId, int todoId, TodoDto todoDto)
     {
         var todo = GetTodo(userId, todoId).Result;
 
         if (todo is null)
             return null;
         
-        todo.Title = todoUpdateDto.Title;
-        todo.Description = todoUpdateDto.Description;
-        todo.Status = todoUpdateDto.Status;
+        todo.Title = todoDto.Title;
+        todo.Description = todoDto.Description;
+        todo.Status = todoDto.Status;
         todo.Updated = DateTime.Now.AddSeconds(-DateTime.Now.Second).AddMilliseconds(-DateTime.Now.Millisecond);
 
         var newTodo = _database.Todos.Update(todo);
@@ -92,11 +92,11 @@ public class TodoService : ITodoService
 
     private async Task UpdateTodoCount(int userId, bool increment = false)
     {
-        var user = await _database.Users.FirstAsync(u => u.Id == userId);
+        var user = await _database.Users.FindAsync(userId);
         if (increment)
-            user.TodoCount += 1;
+            user!.TodoCount += 1;
         else
-            user.TodoCount -= 1;
+            user!.TodoCount -= 1;
 
         _database.Users.Update(user);
     }

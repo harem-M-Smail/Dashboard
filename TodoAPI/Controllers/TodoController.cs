@@ -48,7 +48,7 @@ public class TodoController : ControllerBase
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> CreateTodo(TodoCreationDto newTodo)
+    public async Task<IActionResult> CreateTodo(TodoDto newTodo)
     {
         await _todoService.CreateTodo(_userClaims.UserId, newTodo);
 
@@ -56,11 +56,11 @@ public class TodoController : ControllerBase
     }
 
     [HttpPut("update/{todoId:int}")]
-    public async Task<IActionResult> UpdateTodo(int todoId, TodoUpdateDto updateTodo)
+    public async Task<IActionResult> UpdateTodo(int todoId, TodoDto todo)
     {
-        var updatedTodo = await _todoService.UpdateTodo(_userClaims.UserId, todoId, updateTodo);
+        var updatedTodo = await _todoService.UpdateTodo(_userClaims.UserId, todoId, todo);
 
-        if (updateTodo is null)
+        if (todo is null)
             return BadRequest("Invalid Todo Id!");
         
         return Ok(updatedTodo);

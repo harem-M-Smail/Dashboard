@@ -12,10 +12,14 @@ public class TodoDbContext : DbContext
     
     public DbSet<User> Users { get; set; }
     public DbSet<Todo> Todos { get; set; }
+    public DbSet<Product> Products { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Todo>()
+            .HasOne<User>().WithMany().HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Product>()
             .HasOne<User>().WithMany().HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.Cascade);
         
         base.OnModelCreating(modelBuilder);

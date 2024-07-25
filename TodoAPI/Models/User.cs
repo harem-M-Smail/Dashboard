@@ -14,4 +14,5 @@ public class User
     public required string Password { get; set; }
 
     public int TodoCount { get; set; } = 0;
+    public uint ProductCount { get; set; } = 0;
 }

@@ -22,6 +22,7 @@ builder.Services.AddDbContext<TodoDbContext>(options =>
 // services config
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddCors(options =>
 {
