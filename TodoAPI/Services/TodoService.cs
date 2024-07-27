@@ -39,9 +39,15 @@ public class TodoService : ITodoService
         return todos;
     }
 
-    public TodoPage GetTodoByPage(int userId, int page, int pageSize)
+    public TodoPage GetTodoByPage(int userId, int page, int pageSize, string? status, string? title)
     {
         var todos = GetAllTodo(userId).Result;
+
+        if (string.IsNullOrWhiteSpace(title) is false)
+            todos = todos.Where(t => t.Title.Contains(title, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+        if (status is not null && status != "All")
+            todos = todos.Where(t => t.Status == status).ToList();
         
         var todoPage = new TodoPage()
         {
@@ -51,6 +57,28 @@ public class TodoService : ITodoService
         };
 
         return todoPage;
+    }
+
+    public async Task<List<Todo>> SearchTodo(int userId, TodoSearch todoSearch)
+    {
+        List<Todo> searchedTodos;
+        if (todoSearch.Title is not null)
+        {
+            searchedTodos = await _database.Todos
+                        .Where(t => t.UserId == userId && t.Title.Contains(todoSearch.Title))
+                        .AsNoTracking()
+                        .ToListAsync();
+        }
+        else
+        {
+            searchedTodos = GetAllTodo(userId).Result;
+        }
+        
+
+        if (todoSearch.Status is not null && todoSearch.Status != "All")
+            return searchedTodos.Where(t => t.Status == todoSearch.Status).ToList();
+
+        return searchedTodos;
     }
 
     public async Task<Todo?> GetTodo(int userId, int todoId)

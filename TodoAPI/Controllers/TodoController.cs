@@ -29,12 +29,17 @@ public class TodoController : ControllerBase
         return Ok(todos);
     }
 
-    [HttpGet("todos-page/{page:int}/{pageSize:int}")]
-    public IActionResult GetTodosByPage(int page, int pageSize)
+    [HttpGet("todos-page/{page:int}/{pageSize:int}/{status}/{title?}")]
+    public IActionResult GetTodosByPage(int page, int pageSize, string status, string? title=null)
     {
-        var todos = _todoService.GetTodoByPage(_userClaims.UserId, page, pageSize);
-
+        var todos = _todoService.GetTodoByPage(_userClaims.UserId, page, pageSize, status, title);
         return Ok(todos);
+    }   
+
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchTodos(TodoSearch todoSearch)
+    {
+        return Ok(await _todoService.SearchTodo(_userClaims.UserId, todoSearch));
     }
 
     [HttpGet("todo/{todoId:int}")]

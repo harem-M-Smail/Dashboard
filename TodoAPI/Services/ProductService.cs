@@ -39,9 +39,14 @@ public class ProductService : IProductService
         return products;
     }
 
-    public ProductPage GetProductByPage(int userId, int page, int pageSize)
+    public ProductPage GetProductByPage(int userId, int page, int pageSize, string? name)
     {
         var products = GetAllProducts(userId).Result;
+
+        if (string.IsNullOrWhiteSpace(name) is false)
+        {
+            products = products.Where(p => p.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        }
 
         var productPage = new ProductPage()
         {

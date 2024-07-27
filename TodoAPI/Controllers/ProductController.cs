@@ -26,10 +26,10 @@ public class ProductController : ControllerBase
         return Ok(await _productService.GetAllProducts(_userClaims.UserId));
     }
 
-    [HttpGet("product-page/{page:int}/{pageSize:int}")]
-    public IActionResult GetProductsByPage(int page, int pageSize)
+    [HttpGet("product-page/{page:int}/{pageSize:int}/{name?}")]
+    public IActionResult GetProductsByPage(int page, int pageSize, string? name=null)
     {
-        return Ok(_productService.GetProductByPage(_userClaims.UserId, page, pageSize));
+        return Ok(_productService.GetProductByPage(_userClaims.UserId, page, pageSize, name));
     }
 
     [HttpGet("product/{productId:int}")]
