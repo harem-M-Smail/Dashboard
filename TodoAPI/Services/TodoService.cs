@@ -48,6 +48,12 @@ public class TodoService : ITodoService
 
         if (status is not null && status != "All")
             todos = todos.Where(t => t.Status == status).ToList();
+
+        if (todos.Count == 0)
+            return new TodoPage()
+            {
+                TotalPages = 1, CurrentPage = 1, Todos = []
+            };
         
         var todoPage = new TodoPage()
         {

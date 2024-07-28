@@ -44,9 +44,13 @@ public class ProductService : IProductService
         var products = GetAllProducts(userId).Result;
 
         if (string.IsNullOrWhiteSpace(name) is false)
-        {
             products = products.Where(p => p.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();
-        }
+
+        if (products.Count == 0)
+            return new ProductPage()
+            {
+                TotalPages = 1, CurrentPage = 1, Products = []
+            };
 
         var productPage = new ProductPage()
         {
